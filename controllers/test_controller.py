@@ -25,3 +25,9 @@ def get_test_by_id(db: Session, test_id: int):
     test = db.query(Test).filter(Test.id == test_id).first()
     test.calculate_total_score()
     return test
+
+def get_all_tests(db: Session):
+    tests = db.query(Test).all()
+    for test in tests:
+        test.calculate_total_score()
+    return tests

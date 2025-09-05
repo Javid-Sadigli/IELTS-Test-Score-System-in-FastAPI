@@ -22,3 +22,7 @@ def get_test(test_id: int, db: Session = Depends(get_db)):
     if not test:
         return {"error": "Test not found"}
     return test
+
+@router.get("/")
+def get_all_tests(db: Session = Depends(get_db)):
+    return test_controller.get_all_tests(db)
