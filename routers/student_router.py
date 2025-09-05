@@ -15,3 +15,7 @@ def get_student(student_id: int, db: Session = Depends(get_db)):
     if not student:
         return {"error": "Student not found"}
     return student
+
+@router.post("/")
+def create_student(full_name: str = Body(...), email: str = Body(...), db: Session = Depends(get_db)):
+    return student_controller.create_student(db, full_name, email)
