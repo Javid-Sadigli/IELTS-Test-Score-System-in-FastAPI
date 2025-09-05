@@ -13,3 +13,11 @@ def create_student(db: Session, full_name: str, email: str):
     db.commit()
     db.refresh(new_student)
     return new_student
+
+def delete_student(db: Session, student_id: int):
+    student = db.query(Student).filter(Student.id == student_id).first()
+    if student:
+        db.delete(student)
+        db.commit()
+        return True
+    return False
