@@ -26,3 +26,10 @@ def get_test(test_id: int, db: Session = Depends(get_db)):
 @router.get("/")
 def get_all_tests(db: Session = Depends(get_db)):
     return test_controller.get_all_tests(db)
+
+@router.delete("/{test_id}")
+def delete_test(test_id: int, db: Session = Depends(get_db)):
+    success = test_controller.delete_test(db, test_id)
+    if not success:
+        return {"error": "Test not found"}
+    return {"message": "Test deleted successfully"}

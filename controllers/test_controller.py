@@ -31,3 +31,11 @@ def get_all_tests(db: Session):
     for test in tests:
         test.calculate_total_score()
     return tests
+
+def delete_test(db: Session, test_id: int):
+    test = db.query(Test).filter(Test.id == test_id).first()
+    if test:
+        db.delete(test)
+        db.commit()
+        return True
+    return False
