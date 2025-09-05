@@ -1,8 +1,11 @@
-from pydantic import BaseModel
-from typing import Optional
-from uuid import UUID, uuid4
+from sqlalchemy import Column, Integer, String
+from db.db import Base
 
-class Student(BaseModel):
-    id: Optional[UUID] = uuid4
-    full_name: str
-    email: str
+class Student(Base):
+    __tablename__ = "students"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    full_name= Column(String(50), nullable=False)
+    email= Column(String(50), unique=True, index=True, nullable=False)
+    
+    
