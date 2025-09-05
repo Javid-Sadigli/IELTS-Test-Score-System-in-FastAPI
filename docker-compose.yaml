@@ -15,5 +15,19 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  web:
+    build: .
+    container_name: fastapi_app
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: "mysql+pymysql://admin:admin123@mysql:3306/ielts_db"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
 volumes:
   mysql_data:
