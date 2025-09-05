@@ -20,3 +20,8 @@ def create_test(db: Session, student_id: int, listening: float, reading: float, 
     db.refresh(new_test)
     return new_test
 
+
+def get_test_by_id(db: Session, test_id: int):
+    test = db.query(Test).filter(Test.id == test_id).first()
+    test.calculate_total_score()
+    return test

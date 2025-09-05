@@ -18,7 +18,6 @@ class Test(Base):
     
     total_score : ClassVar[Double]
     
-    @property
     def calculate_total_score(self):
         total_score_not_rounded = (self.reading_score + self.writing_score + self.listening_score + self.speaking_score) / 4
         self.total_score = ielts_round(total_score_not_rounded)
