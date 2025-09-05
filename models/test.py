@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from db.db import Base
 
@@ -10,4 +10,7 @@ class Test(Base):
     writing_score = Column(Integer, nullable=False)
     listening_score = Column(Integer, nullable=False)
     speaking_score = Column(Integer, nullable=False)
+    
+    student_id = Column(Integer, ForeignKey("students.id"), nullable=False)
+    
     student = relationship("Student", back_populates="tests")
