@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from models.student import Student
+from . import test_controller
 
 def get_all_students(db: Session):
     return db.query(Student).all()
@@ -21,3 +22,9 @@ def delete_student(db: Session, student_id: int):
         db.commit()
         return True
     return False
+
+def get_student_tests(db: Session, student_id: int):
+    student = get_student_by_id(db, student_id)
+    if not student:
+        return {"error": "Student not found"}
+    return test_controller.get_tests_by_student_id(db, student_id)

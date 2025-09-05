@@ -39,3 +39,9 @@ def delete_test(db: Session, test_id: int):
         db.commit()
         return True
     return False
+
+def get_tests_by_student_id(db: Session, student_id: int):
+    tests = db.query(Test).filter(Test.student_id == student_id).all()
+    for test in tests:
+        test.calculate_total_score()
+    return tests

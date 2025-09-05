@@ -26,3 +26,7 @@ def delete_student(student_id: int, db: Session = Depends(get_db)):
     if not success:
         return {"error": "Student not found or could not be deleted"}
     return {"message": "Student deleted successfully"}
+
+@router.get("/{student_id}/tests")
+def get_student_tests(student_id: int, db: Session = Depends(get_db)):
+    return student_controller.get_student_tests(db, student_id)
