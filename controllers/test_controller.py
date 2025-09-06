@@ -40,7 +40,10 @@ def delete_test(db: Session, test_id: int):
         return True
     return False
 
-def update_test(db: Session, test_id: int, listening: float = None, reading: float = None, writing: float = None, speaking: float = None):
+def update_test(
+    db: Session, test_id: int, 
+    listening: float = None, reading: float = None, writing: float = None, speaking: float = None
+):
     test = db.query(Test).filter(Test.id == test_id).first()
     if not test:
         return None
