@@ -38,5 +38,5 @@ def update_student(db: Session, student_id: int, full_name: str = None, email: s
 def get_student_tests(db: Session, student_id: int):
     student = get_student_by_id(db, student_id)
     if not student:
-        return {"error": "Student not found"}
+        return None
     return test_controller.get_tests_by_student_id(db, student_id)

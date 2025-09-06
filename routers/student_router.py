@@ -41,4 +41,7 @@ def update_student(
 
 @router.get("/{student_id}/tests")
 def get_student_tests(student_id: int, db: Session = Depends(get_db)):
-    return student_controller.get_student_tests(db, student_id)
+    student_tests = student_controller.get_student_tests(db, student_id)
+    if student_tests is None:
+        return {"error": "Student not found"}
+    return student_tests
