@@ -23,6 +23,18 @@ def delete_student(db: Session, student_id: int):
         return True
     return False
 
+def update_student(db: Session, student_id: int, full_name: str = None, email: str = None):
+    student = db.query(Student).filter(Student.id == student_id).first()
+    if not student:
+        return None
+    if full_name:
+        student.full_name = full_name
+    if email:
+        student.email = email
+    db.commit()
+    db.refresh(student)
+    return student
+
 def get_student_tests(db: Session, student_id: int):
     student = get_student_by_id(db, student_id)
     if not student:

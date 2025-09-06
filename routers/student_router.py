@@ -27,6 +27,18 @@ def delete_student(student_id: int, db: Session = Depends(get_db)):
         return {"error": "Student not found or could not be deleted"}
     return {"message": "Student deleted successfully"}
 
+@router.put("/{student_id}")
+def update_student(
+    student_id: int, 
+    full_name: str = Body(None), 
+    email: str = Body(None), 
+    db: Session = Depends(get_db)
+):
+    student = student_controller.update_student(db, student_id, full_name, email)
+    if not student:
+        return {"error": "Student not found or could not be updated"}
+    return student
+
 @router.get("/{student_id}/tests")
 def get_student_tests(student_id: int, db: Session = Depends(get_db)):
     return student_controller.get_student_tests(db, student_id)
