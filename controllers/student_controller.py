@@ -27,9 +27,9 @@ def update_student(db: Session, student_id: int, full_name: str = None, email: s
     student = db.query(Student).filter(Student.id == student_id).first()
     if not student:
         return None
-    if full_name:
+    if full_name is not None:
         student.full_name = full_name
-    if email:
+    if email is not None:
         student.email = email
     db.commit()
     db.refresh(student)

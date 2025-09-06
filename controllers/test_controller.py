@@ -40,6 +40,23 @@ def delete_test(db: Session, test_id: int):
         return True
     return False
 
+def update_test(db: Session, test_id: int, listening: float = None, reading: float = None, writing: float = None, speaking: float = None):
+    test = db.query(Test).filter(Test.id == test_id).first()
+    if not test:
+        return None
+    if listening is not None:
+        test.listening_score = listening
+    if reading is not None:
+        test.reading_score = reading
+    if writing is not None:
+        test.writing_score = writing
+    if speaking is not None:
+        test.speaking_score = speaking
+    db.commit()
+    db.refresh(test)
+    test.calculate_total_score()
+    return test
+
 def get_tests_by_student_id(db: Session, student_id: int):
     tests = db.query(Test).filter(Test.student_id == student_id).all()
     for test in tests:

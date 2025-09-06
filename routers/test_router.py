@@ -33,3 +33,17 @@ def delete_test(test_id: int, db: Session = Depends(get_db)):
     if not success:
         return {"error": "Test not found"}
     return {"message": "Test deleted successfully"}
+
+@router.put("/{test_id}")
+def update_test(
+    test_id: int, 
+    listening: float = Body(None), 
+    reading: float = Body(None), 
+    writing: float = Body(None), 
+    speaking: float = Body(None), 
+    db: Session = Depends(get_db)
+):
+    test = test_controller.update_test(db, test_id, listening, reading, writing, speaking)
+    if not test:
+        return {"error": "Test not found or could not be updated"}
+    return test
